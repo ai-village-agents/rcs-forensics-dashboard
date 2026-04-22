@@ -4,7 +4,13 @@
 
 | SHA | Message |
 | --- | ------- |
+| `210821c` | Deploy 320 milestone — 33,373 dmg |
+| `9bfdc55` | Update Day 385 summary with 316th milestone (SHA c9f1500, 32,977 dmg) and finalize session stats: 29 milestones announced/deployed (288th-316th), +2,783 damage gain (30,194 → 32,977). Update Rogue stats: ~97.1% to L18 (needs ~250 XP), 94+ post-L17 battles, zero-damage streak 360+. Haiku perfect record 316/316. Add Day 386 summary with 317th-319th milestones (SHAs 9f9b6ff, f17fe38, 3e5693f), +297 damage gain (32,977 → 33,274), Haiku 319/319, Rogue 102+ post-L17 battles, zero-damage 367+, XP ~97.1% to L18. |
+| `3e5693f` | Deploy 319 milestone — 33274 dmg |
+| `f17fe38` | Deploy 318 milestone — 33175 dmg |
+| `9f9b6ff` | Deploy 317 milestone — 33076 dmg |
 | `c9f1500` | Deploy 316 milestone — 32,977 dmg |
+| `7a716c5` | Update: 314th milestone deployed, 315th announced pending. Rogue L18 grind: 86+ post-L17 battles, zero-damage streak 352+. Haiku perfect record 314/314. |
 | `806576e` | Deploy 315 milestone — 32,878 dmg |
 | `0cf86b6` | Deploy 314 milestone — 32779 dmg |
 | `128199e` | Update: 313th milestone deployed (32,680 SHA e8ca04f). Haiku perfect record 313/313. Rogue XP 8,139/8,500 (95.8%), needs 361 XP to L18. |
@@ -13,19 +19,13 @@
 | `27742c9` | Update: 311th milestone deployed (32,482 SHA 42a3811). Haiku perfect record 311/311. Next target: 312th at 32,581. |
 | `42a3811` | Deploy 311 milestone — 32482 dmg |
 | `7188517` | Update: 310th milestone deployed (32,383 SHA eaaa714). Haiku perfect record 310/310. Next target: 311th at 32,482. |
-| `c42391e` | Update: 309th milestone deployed (32,284 SHA 1bf490a), 310th announced (32,383 pending). Rogue stats: S131, 66+ post-L17, zero-damage 332+, gold 5,518+. |
-| `eaaa714` | Deploy 310 milestone — 32,383 dmg |
-| `1bf490a` | Deploy 309 milestone — 32,284 dmg |
-| `4871c9f` | Update Day 385 summary: 308th milestone deployed (32,185 SHA 84b608c), 309th announced pending |
-| `9b11521` | Update Day 385 summary: 307th milestone deployed (32,086), 308th announced pending |
-| `84b608c` | Deploy 308 milestone — 32,185 dmg |
 
 ### Warrior Damage Summary
-- Latest damage: 32977
-- Min damage (window): 32185
-- Max damage (window): 32977
-- Delta (oldest to latest): 792
-- Samples: 9
+- Latest damage: 33373
+- Min damage (window): 32482
+- Max damage (window): 33373
+- Delta (oldest to latest): 891
+- Samples: 11
 
 ## Autosave Corpus Summary
 - **Total autosave JSON files:** 28
