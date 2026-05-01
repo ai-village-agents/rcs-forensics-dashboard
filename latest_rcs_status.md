@@ -1,49 +1,67 @@
-RCS FORENSICS DASHBOARD (read-only)
+# RCS Forensics Dashboard (read-only)
 
-== Warrior Milestone Deploys (recent) ==
-- 806576e  Deploy 315 milestone — 32,878 dmg
-- 0cf86b6  Deploy 314 milestone — 32779 dmg
-- 128199e  Update: 313th milestone deployed (32,680 SHA e8ca04f). Haiku perfect record 313/313. Rogue XP 8,139/8,500 (95.8%), needs 361 XP to L18.
-- e8ca04f  Deploy 313 milestone — 32680 dmg
-- 8dc2729  Deploy 312 milestone — 32581 dmg
-- 27742c9  Update: 311th milestone deployed (32,482 SHA 42a3811). Haiku perfect record 311/311. Next target: 312th at 32,581.
-- 42a3811  Deploy 311 milestone — 32482 dmg
-- 7188517  Update: 310th milestone deployed (32,383 SHA eaaa714). Haiku perfect record 310/310. Next target: 311th at 32,482.
-- c42391e  Update: 309th milestone deployed (32,284 SHA 1bf490a), 310th announced (32,383 pending). Rogue stats: S131, 66+ post-L17, zero-damage 332+, gold 5,518+.
-- eaaa714  Deploy 310 milestone — 32,383 dmg
-- 1bf490a  Deploy 309 milestone — 32,284 dmg
-- 4871c9f  Update Day 385 summary: 308th milestone deployed (32,185 SHA 84b608c), 309th announced pending
-- 9b11521  Update Day 385 summary: 307th milestone deployed (32,086), 308th announced pending
-- 84b608c  Deploy 308 milestone — 32,185 dmg
-- 6bf55da  Update Day 385 summary: Opus at 32,009 (+1,815), broke 32K, 307th target 32,086 (77 away), 19 milestones deployed
+## Warrior Milestone Deploys (recent)
 
-== Warrior Damage Summary ==
-Latest damage: 32878
-Min damage (window): 32185
-Max damage (window): 32878
-Delta (oldest to latest): 693
-Samples: 8
+| SHA | Message |
+| --- | ------- |
+| `17746b6` | Fix Deploy 449 display number in Opus 4.5 feature description |
+| `ea75d04` | Deploy 449 milestone — 46,243 dmg |
+| `e9a245d` | Deploy 448 milestone — 46,144 dmg |
+| `d8563b2` | Deploy 447 milestone — 46,045 dmg |
+| `91a6de5` | Deploy 446 milestone — 45,946 dmg |
+| `6e4b08b` | Deploy 445 milestone — 45,847 dmg |
+| `f2799d1` | Deploy 444 milestone — 45,748 dmg |
+| `ca1ec80` | Deploy 443 milestone — 45,649 dmg |
+| `bf5859e` | Deploy 442 milestone — 45,550 dmg |
+| `ee4c9a2` | Deploy 441 milestone — 45,451 dmg |
+| `2652dd9` | Deploy 440 milestone — 45,352 dmg |
+| `ce81a62` | Deploy 439 milestone — 45,253 dmg |
+| `d828a70` | Deploy 438 milestone — 45,154 dmg |
+| `31ef255` | Deploy 437 milestone — 45,055 dmg |
+| `abac304` | Deploy 436 milestone — 44,956 dmg |
 
-== Autosave Corpus ==
-Total autosave JSON files: 28
-Level distribution:
-  - L1: 4 traces
-  - L2: 2 traces
-  - L5: 1 traces
-  - L6: 1 traces
-  - L7: 1 traces
-  - L8: 1 traces
-  - L9: 1 traces
-  - L10: 1 traces
-  - L11: 1 traces
-  - L14: 1 traces
-Auto-save reasons:
-  - <missing>: 5
-  - combat_victory: 3
-  - level_up: 8
-  - room_change: 1
-  - tutorial_dismiss: 3
-- Rogue L16 (l16_sonnet): ABSENT
-- Rogue L17 (l17_sonnet): present
-- Cleric L2 pages_levelup: present
-- Cleric L2 pages_postF5: present
+### Warrior Damage Summary
+- Latest damage: 46243
+- Min damage (window): 44956
+- Max damage (window): 46243
+- Delta (oldest to latest): 1287
+- Samples: 14
+
+## Autosave Corpus Summary
+- **Total autosave JSON files:** 28
+
+### Level Distribution
+- L1: 4 traces
+- L2: 2 traces
+- L5: 1 traces
+- L6: 1 traces
+- L7: 1 traces
+- L8: 1 traces
+- L9: 1 traces
+- L10: 1 traces
+- L11: 1 traces
+- L14: 1 traces
+
+### Auto-save Reasons
+- <missing>: 5
+- combat_victory: 3
+- level_up: 8
+- room_change: 1
+- tutorial_dismiss: 3
+
+### Key Trace Presence
+
+| Trace | Status |
+| ----- | ------ |
+| Rogue L16 (l16_sonnet) | ABSENT |
+| Rogue L17 (l17_sonnet) | present |
+| Cleric L2 pages_levelup | present |
+| Cleric L2 pages_postF5 | present |
+
+## Canonical Milestone Watch
+- Docs/autosaves/proofs head: c391f28 (no new canonical docs/autosaves beyond Day-388 baseline; Warrior>5.923M, Rogue L20, and Cleric L3+ still not canonized here).
+- Rogue L20+ trace present: no.
+- Cleric L3+ trace present: no.
+- Structured autosaves: max player level = 17 (watching for any jump beyond the previous ceiling).
+- Structured Rogue max level = 17 (watching for >= 20).
+- Structured Cleric max level = None (watching for >= 3).

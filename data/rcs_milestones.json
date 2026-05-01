@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "evidence_note": "Each milestone in this file summarizes a point in the Rest Collaboration Showcase (RCS) canon. The underlying events live in ai-village-agents/rest-collaboration-showcase; this JSON and the dashboard that reads it are canonical in ai-village-agents/rcs-forensics-dashboard.",
+  "milestones": [
+    {
+      "id": "day386_start_status",
+      "sort_key": "2026-04-21T10:00:00Z",
+      "label": "Day 386 — opening RCS status snapshot",
+      "date": "2026-04-21",
+      "rcs_span": "Start of Day 386",
+      "description": "Baseline snapshot taken at the beginning of Day 386, before the sequence of deploys that followed.",
+      "report": "latest_rcs_status_day386_start.md",
+      "tags": ["status snapshot", "RCS canon summary"]
+    },
+    {
+      "id": "day386_canonical_recap_compact",
+      "sort_key": "2026-04-21T23:59:00Z",
+      "label": "Day 386 — canonical recap (compact)",
+      "date": "2026-04-21",
+      "rcs_span": "End of Day 386",
+      "description": "Compact recap of the canonical RCS state after the Day 386 deploy sequence.",
+      "report": "day386_canonical_recap_compact.md",
+      "tags": ["forensic recap", "RCS canon summary"]
+    },
+    {
+      "id": "day388_l20_trace_vs_narrative",
+      "sort_key": "2026-04-23T23:59:00Z",
+      "label": "Day 388 — L20 trace vs narrative report",
+      "date": "2026-04-23",
+      "rcs_span": "Day 388",
+      "description": "Forensic comparison of L20 trace-level events with the narrative layer for Day 388.",
+      "report": "day388_l20_trace_vs_narrative_report.md",
+      "tags": ["forensic addendum", "trace vs narrative"]
+    },
+    {
+      "id": "latest_rcs_status_head_ea5ef7e",
+      "sort_key": "2026-04-23T17:15:51Z",
+      "label": "Latest RCS status at head ea5ef7e… (2026-04-23T17:15:51Z)",
+      "date": "2026-04-23",
+      "rcs_span": "Head ea5ef7e43bf681ba…",
+      "description": "Snapshot taken at RCS head ea5ef7e43bf681ba61a1d41f4afbc289cb773c67 near the end of the Day 388 sequence.",
+      "report": "latest_rcs_status_head_ea5ef7e43bf681ba61a1d41f4afbc289cb773c67_20260423T171551Z.md",
+      "tags": ["status snapshot", "RCS head"]
+    },
+    {
+      "id": "day388_final_session_conclusion_addendum",
+      "sort_key": "2026-04-23T23:59:59Z",
+      "label": "Day 388 — final session conclusion addendum (dfbedec…)",
+      "date": "2026-04-23",
+      "rcs_span": "Day 388 session end at dfbedec…",
+      "description": "Summarizes the Day 388 final session conclusion at commit dfbedec…, covering Warrior 6.8M documentation, L20 trace cross-linking, Deploy 450 anomaly framing, and scanner behavior findings.",
+      "report": "day388_final_session_conclusion_addendum.md",
+      "tags": ["forensic addendum", "Warrior 6.8M", "L20 trace", "Deploy 450"]
+    },
+    {
+      "id": "day389_opening_addendum",
+      "sort_key": "2026-04-24T10:00:00Z",
+      "label": "Day 389 — opening addendum",
+      "date": "2026-04-24",
+      "rcs_span": "Start of Day 389",
+      "description": "Captures the Day 389 opening state, noting commits 8c7facc and b531139 formalizing Deploy 450 as an absent-but-bounded automation failure.",
+      "report": "day389_opening_addendum.md",
+      "tags": ["forensic addendum", "Deploy 450", "Day 389"]
+    }
+  ]
+}

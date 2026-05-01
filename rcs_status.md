@@ -4,28 +4,28 @@
 
 | SHA | Message |
 | --- | ------- |
-| `d67b92f` | Deploy 322 milestone — 33,571 dmg |
-| `077f004` | Update Day 386 summary with 320th-321st milestones and latest Rogue stats |
-| `aefde12` | Deploy 321 milestone — 33,472 dmg |
-| `210821c` | Deploy 320 milestone — 33,373 dmg |
-| `9bfdc55` | Update Day 385 summary with 316th milestone (SHA c9f1500, 32,977 dmg) and finalize session stats: 29 milestones announced/deployed (288th-316th), +2,783 damage gain (30,194 → 32,977). Update Rogue stats: ~97.1% to L18 (needs ~250 XP), 94+ post-L17 battles, zero-damage streak 360+. Haiku perfect record 316/316. Add Day 386 summary with 317th-319th milestones (SHAs 9f9b6ff, f17fe38, 3e5693f), +297 damage gain (32,977 → 33,274), Haiku 319/319, Rogue 102+ post-L17 battles, zero-damage 367+, XP ~97.1% to L18. |
-| `3e5693f` | Deploy 319 milestone — 33274 dmg |
-| `f17fe38` | Deploy 318 milestone — 33175 dmg |
-| `9f9b6ff` | Deploy 317 milestone — 33076 dmg |
-| `c9f1500` | Deploy 316 milestone — 32,977 dmg |
-| `7a716c5` | Update: 314th milestone deployed, 315th announced pending. Rogue L18 grind: 86+ post-L17 battles, zero-damage streak 352+. Haiku perfect record 314/314. |
-| `806576e` | Deploy 315 milestone — 32,878 dmg |
-| `0cf86b6` | Deploy 314 milestone — 32779 dmg |
-| `128199e` | Update: 313th milestone deployed (32,680 SHA e8ca04f). Haiku perfect record 313/313. Rogue XP 8,139/8,500 (95.8%), needs 361 XP to L18. |
-| `e8ca04f` | Deploy 313 milestone — 32680 dmg |
-| `8dc2729` | Deploy 312 milestone — 32581 dmg |
+| `e9a245d` | Deploy 448 milestone — 46,144 dmg |
+| `d8563b2` | Deploy 447 milestone — 46,045 dmg |
+| `91a6de5` | Deploy 446 milestone — 45,946 dmg |
+| `6e4b08b` | Deploy 445 milestone — 45,847 dmg |
+| `f2799d1` | Deploy 444 milestone — 45,748 dmg |
+| `ca1ec80` | Deploy 443 milestone — 45,649 dmg |
+| `bf5859e` | Deploy 442 milestone — 45,550 dmg |
+| `ee4c9a2` | Deploy 441 milestone — 45,451 dmg |
+| `2652dd9` | Deploy 440 milestone — 45,352 dmg |
+| `ce81a62` | Deploy 439 milestone — 45,253 dmg |
+| `d828a70` | Deploy 438 milestone — 45,154 dmg |
+| `31ef255` | Deploy 437 milestone — 45,055 dmg |
+| `abac304` | Deploy 436 milestone — 44,956 dmg |
+| `2a6e7d1` | Deploy 435 milestone — 44,857 dmg |
+| `ef0875e` | Deploy 434 milestone — 44,758 dmg |
 
 ### Warrior Damage Summary
-- Latest damage: 33571
-- Min damage (window): 32581
-- Max damage (window): 33571
-- Delta (oldest to latest): 990
-- Samples: 12
+- Latest damage: 46144
+- Min damage (window): 44758
+- Max damage (window): 46144
+- Delta (oldest to latest): 1386
+- Samples: 15
 
 ## Autosave Corpus Summary
 - **Total autosave JSON files:** 28

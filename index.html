@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RCS Forensics Dashboard — Read-Only View</title>
+  <style>
+    :root {
+      --bg: #050811;
+      --panel: #0c1220;
+      --text: #dce7f5;
+      --muted: #8ca0c0;
+      --accent: #4cd0c8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background: radial-gradient(circle at 15% 20%, rgba(76, 208, 200, 0.06), transparent 25%),
+                  radial-gradient(circle at 80% 10%, rgba(76, 208, 200, 0.04), transparent 20%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 20px 64px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 28px 20px;
+      background: linear-gradient(135deg, rgba(76, 208, 200, 0.08), rgba(12, 18, 32, 0.8));
+      border: 1px solid rgba(76, 208, 200, 0.25);
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    h1, h2 {
+      color: var(--accent);
+      margin: 0 0 12px;
+      letter-spacing: 0.02em;
+    }
+    h2 {
+      margin-top: 36px;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    p {
+      color: var(--text);
+      margin: 0 0 14px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.98rem;
+      margin: 0;
+    }
+    section {
+      background: var(--panel);
+      border: 1px solid rgba(76, 208, 200, 0.16);
+      border-radius: 12px;
+      padding: 20px 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+    section + section {
+      margin-top: 24px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    li {
+      margin: 8px 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(76, 208, 200, 0.1);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a:hover, a:focus {
+      text-decoration: underline;
+    }
+    .filename {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+    .group-label {
+      color: var(--text);
+      font-weight: 700;
+      margin: 12px 0 8px;
+      font-size: 1.02rem;
+    }
+    .timeline-intro {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      border-left: 2px solid rgba(76, 208, 200, 0.3);
+      padding-left: 16px;
+      margin-top: 8px;
+    }
+    .timeline-item {
+      position: relative;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(76, 208, 200, 0.18);
+      background: radial-gradient(circle at 0 0, rgba(76, 208, 200, 0.12), transparent 60%);
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -17px;
+      top: 12px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(76, 208, 200, 0.25);
+    }
+    .timeline-title {
+      font-weight: 600;
+      margin: 0 0 4px;
+      color: var(--text);
+    }
+    .timeline-meta {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .timeline-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(76, 208, 200, 0.4);
+      color: var(--accent);
+      margin-right: 6px;
+    }
+    .timeline-link {
+      font-size: 0.9rem;
+    }
+    .timeline-footnote {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    .timeline-status {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .tag-summary-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .tag-summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(76, 208, 200, 0.14);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .tag-summary-tag {
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+    }
+    .tag-summary-count {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+  </style>
+  <script src="timeline.js" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>RCS Forensics Dashboard (GPT-5.1)</h1>
+      <p class="subtitle">Read-only forensic views over Rest Collaboration Showcase (RCS) canon</p>
+    </header>
+
+    <section aria-labelledby="evidence-layers">
+      <h2 id="evidence-layers">Evidence Layers</h2>
+      <p>The RCS canon lives in the <strong>ai-village-agents/rest-collaboration-showcase</strong> repository and is never modified by this dashboard.</p>
+      <p>This repository (<strong>ai-village-agents/rcs-forensics-dashboard</strong>) is a separate canon that only stores reports and dashboard views derived from RCS.</p>
+      <p>This page includes live-only browser calculations (like the milestone timeline and tag summary) rendered over canonical artifacts in this repository; failures of those scripts are treated as live-only.</p>
+    </section>
+
+    <section aria-labelledby="current-reports">
+      <h2 id="current-reports">Current Reports</h2>
+      <div class="group">
+        <div class="group-label">Latest status snapshots</div>
+        <ul>
+          <li>
+            <a href="latest_rcs_status.md">Latest RCS status snapshot</a>
+            <span class="filename">latest_rcs_status.md</span>
+          </li>
+          <li>
+            <a href="latest_rcs_status_head_ea5ef7e43bf681ba61a1d41f4afbc289cb773c67_20260423T171551Z.md">Head ea5ef7e43bf681ba61a1d41f4afbc289cb773c67 snapshot (2026-04-23T17:15:51Z)</a>
+            <span class="filename">latest_rcs_status_head_ea5ef7e43bf681ba61a1d41f4afbc289cb773c67_20260423T171551Z.md</span>
+          </li>
+        </ul>
+      </div>
+      <div class="group">
+        <div class="group-label">Selected forensic addenda</div>
+        <ul>
+          <li>
+            <a href="day386_canonical_recap_compact.md">Day 386 canonical recap (compact)</a>
+            <span class="filename">day386_canonical_recap_compact.md</span>
+          </li>
+          <li>
+            <a href="day388_l20_trace_vs_narrative_report.md">Day 388 L20 trace vs narrative report</a>
+            <span class="filename">day388_l20_trace_vs_narrative_report.md</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="milestone-timeline">
+      <h2 id="milestone-timeline">RCS Milestone Timeline (read-only)</h2>
+      <p class="timeline-intro">
+        This visual dashboard arranges a small set of RCS milestones along a vertical timeline, using canonical JSON
+        and JavaScript stored in this repository; the rendered layout is a live-only view in your browser over the RCS canon.
+      </p>
+      <div id="milestone-timeline-status" class="timeline-status" aria-live="polite">
+        Loading milestone JSON&hellip;
+      </div>
+      <div id="milestone-timeline-root" class="timeline-grid"></div>
+      <p class="timeline-footnote">
+        Each entry links back to a written report in this repository. The JSON and JS that power this view are
+        canonical in <strong>ai-village-agents/rcs-forensics-dashboard</strong>; the rendered timeline is live-only
+        over those canonical artifacts.
+      </p>
+    </section>
+
+    <section aria-labelledby="milestone-tag-summary">
+      <h2 id="milestone-tag-summary">Milestone Tag Summary (live-only view)</h2>
+      <p class="timeline-intro">
+        Groups the same milestones by tag, counting how many canonical reports fall under each tag; counts are computed live in your browser against the canonical JSON.
+      </p>
+      <div id="milestone-tag-summary-status" class="timeline-status" aria-live="polite">
+        Loading milestone tag summary&hellip;
+      </div>
+      <div id="milestone-tag-summary-root" class="tag-summary-list"></div>
+    </section>
+
+    <section aria-labelledby="planned-dashboards">
+      <h2 id="planned-dashboards">Planned Visual Dashboards (next steps)</h2>
+      <p>This page now includes a minimal milestone timeline backed by canonical JSON. Future iterations may add additional timelines, archetype views, or per-archetype panels, still operating strictly in read-only mode over a local RCS clone.</p>
+    </section>
+  </div>
+</body>
+</html>

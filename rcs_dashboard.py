@@ -128,11 +128,21 @@ def get_autosave_stats() -> dict:
 
     autosave_paths = list_autosave_json_paths_from_origin()
     if not autosave_paths:
-        return {"total": 0, "levels": {}, "autoSaveReasons": {}}
+        return {
+            "total": 0,
+            "levels": {},
+            "autoSaveReasons": {},
+            "maxPlayerLevel": None,
+            "maxRoguePlayerLevel": None,
+            "maxClericPlayerLevel": None,
+        }
 
     level_counter: Counter = Counter()
     reason_counter: Counter = Counter()
     parsed_files = 0
+    max_player_level: int | None = None
+    max_rogue_level: int | None = None
+    max_cleric_level: int | None = None
 
     for path in autosave_paths:
         try:
@@ -152,6 +162,45 @@ def get_autosave_stats() -> dict:
             except (TypeError, ValueError):
                 pass
 
+        player = data.get("save", {}).get("player", {})
+        if isinstance(player, dict):
+            player_level_raw = player.get("level")
+            try:
+                player_level = int(player_level_raw)
+            except (TypeError, ValueError):
+                player_level = None
+
+            class_raw = (
+                player.get("classId")
+                or player.get("class_id")
+                or player.get("class")
+            )
+            class_text = str(class_raw).lower() if class_raw is not None else ""
+
+            if player_level is not None:
+                max_player_level = (
+                    player_level
+                    if max_player_level is None
+                    else max(max_player_level, player_level)
+                )
+
+                if "rogue" in class_text or "assassin" in class_text:
+                    max_rogue_level = (
+                        player_level
+                        if max_rogue_level is None
+                        else max(max_rogue_level, player_level)
+                    )
+                if (
+                    "cleric" in class_text
+                    or "priest" in class_text
+                    or "healer" in class_text
+                ):
+                    max_cleric_level = (
+                        player_level
+                        if max_cleric_level is None
+                        else max(max_cleric_level, player_level)
+                    )
+
         reason = data.get("autoSaveReason")
         reason_key = reason if reason else "<missing>"
         reason_counter[reason_key] += 1
@@ -160,6 +209,9 @@ def get_autosave_stats() -> dict:
         "total": parsed_files,
         "levels": dict(level_counter),
         "autoSaveReasons": dict(reason_counter),
+        "maxPlayerLevel": max_player_level,
+        "maxRoguePlayerLevel": max_rogue_level,
+        "maxClericPlayerLevel": max_cleric_level,
     }
 
 
@@ -176,6 +228,27 @@ def grep_autosave_for(pattern: str) -> bool:
         "contributions/autosave-traces",
     ], cwd=RCS_PATH)
     return bool(out.strip())
+
+
+DOCS_AUTOSAVES_BASELINE_SHA = "c391f28"  # Day 388 final summary commit (current canonical baseline)
+
+
+def get_latest_docs_autosaves_commit() -> str | None:
+    """Return the latest commit SHA that touched project docs, autosaves, structured traces, or proofs on origin/main, or None if none exist."""
+
+    out = _run([
+        "git",
+        "log",
+        "--oneline",
+        "origin/main",
+        "--",
+        "contributions/project-docs",
+        "autosaves",
+        "contributions/autosave-traces",
+        "docs/proofs",
+    ], cwd=RCS_PATH)
+    first = out.splitlines()[0] if out else ""
+    return first.split()[0] if first else None
 
 
 def generate_text_report() -> str:
@@ -233,6 +306,49 @@ def generate_text_report() -> str:
         present = grep_autosave_for(pat)
         status = "present" if present else "ABSENT"
         lines.append(f"- {label}: {status}")
+
+    lines.append("\n== Canonical Milestone Watch ==")
+    latest_sha = get_latest_docs_autosaves_commit()
+    if latest_sha is None:
+        lines.append("- Docs/autosaves/proofs head: (no commits under watched paths).")
+    elif latest_sha == DOCS_AUTOSAVES_BASELINE_SHA:
+        lines.append(
+            f"- Docs/autosaves/proofs head: {latest_sha} (no new canonical docs/autosaves beyond Day-388 baseline; Warrior>5.923M, Rogue L20, and Cleric L3+ still not canonized here)."
+        )
+    else:
+        lines.append(
+            f"- Docs/autosaves/proofs head: {latest_sha} (UPDATED beyond Day-388 baseline {DOCS_AUTOSAVES_BASELINE_SHA} — inspect new docs/autosaves for possible Warrior>5.923M, Rogue L20, or Cleric L3+ evidence)."
+        )
+
+    rogue_l20_present = (
+        stats.get("maxRoguePlayerLevel") is not None
+        and stats.get("maxRoguePlayerLevel") >= 20
+    )
+    cleric_l3_present = (
+        stats.get("maxClericPlayerLevel") is not None
+        and stats.get("maxClericPlayerLevel") >= 3
+    )
+    lines.append(
+        f"- Rogue L20+ trace present: {'yes' if rogue_l20_present else 'no'}."
+    )
+    lines.append(
+        f"- Cleric L3+ trace present: {'yes' if cleric_l3_present else 'no'}."
+    )
+
+    if stats["total"] > 0:
+        lines.append(
+            f"- Structured autosaves: max player level = {stats.get('maxPlayerLevel')} (watching for any jump beyond the previous ceiling)."
+        )
+        lines.append(
+            f"- Structured Rogue max level = {stats.get('maxRoguePlayerLevel')} (watching for >= 20)."
+        )
+        lines.append(
+            f"- Structured Cleric max level = {stats.get('maxClericPlayerLevel')} (watching for >= 3)."
+        )
+    else:
+        lines.append(
+            "- Structured autosaves: none parsed; milestone watch is idle until traces exist."
+        )
 
     return "\n".join(lines) + "\n"
 
@@ -294,6 +410,49 @@ def generate_markdown_report() -> str:
         present = grep_autosave_for(pat)
         status = "present" if present else "ABSENT"
         lines.append(f"| {label} | {status} |")
+
+    lines.append("\n## Canonical Milestone Watch")
+    latest_sha = get_latest_docs_autosaves_commit()
+    if latest_sha is None:
+        lines.append("- Docs/autosaves/proofs head: (no commits under watched paths).")
+    elif latest_sha == DOCS_AUTOSAVES_BASELINE_SHA:
+        lines.append(
+            f"- Docs/autosaves/proofs head: {latest_sha} (no new canonical docs/autosaves beyond Day-388 baseline; Warrior>5.923M, Rogue L20, and Cleric L3+ still not canonized here)."
+        )
+    else:
+        lines.append(
+            f"- Docs/autosaves/proofs head: {latest_sha} (UPDATED beyond Day-388 baseline {DOCS_AUTOSAVES_BASELINE_SHA} — inspect new docs/autosaves for possible Warrior>5.923M, Rogue L20, or Cleric L3+ evidence)."
+        )
+
+    rogue_l20_present = (
+        stats.get("maxRoguePlayerLevel") is not None
+        and stats.get("maxRoguePlayerLevel") >= 20
+    )
+    cleric_l3_present = (
+        stats.get("maxClericPlayerLevel") is not None
+        and stats.get("maxClericPlayerLevel") >= 3
+    )
+    lines.append(
+        f"- Rogue L20+ trace present: {'yes' if rogue_l20_present else 'no'}."
+    )
+    lines.append(
+        f"- Cleric L3+ trace present: {'yes' if cleric_l3_present else 'no'}."
+    )
+
+    if stats["total"] > 0:
+        lines.append(
+            f"- Structured autosaves: max player level = {stats.get('maxPlayerLevel')} (watching for any jump beyond the previous ceiling)."
+        )
+        lines.append(
+            f"- Structured Rogue max level = {stats.get('maxRoguePlayerLevel')} (watching for >= 20)."
+        )
+        lines.append(
+            f"- Structured Cleric max level = {stats.get('maxClericPlayerLevel')} (watching for >= 3)."
+        )
+    else:
+        lines.append(
+            "- Structured autosaves: none parsed; milestone watch is idle until traces exist."
+        )
 
     return "\n".join(lines) + "\n"
 
